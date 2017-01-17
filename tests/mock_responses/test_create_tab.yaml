@@ -1,0 +1,38 @@
+drive.files.list:
+    - null
+    - files:
+         - id: xyz1234
+           mimeType: application/vnd.google-apps.spreadsheet
+           name: gsheets_test_1
+           webViewLink: https://docs.google.com/spreadsheets/d/xyz1234/edit?usp=drivesdk
+sheets.spreadsheets.batchUpdate:
+    - null
+    - replies:
+          - addSheet:
+              properties:
+                  gridProperties:
+                      columnCount: 10
+                      rowCount: 20
+                  index: 1
+                  sheetId: 1162009294
+                  title: test_create_tab
+      spreadsheetId: xyz1234
+    - requests:
+          - addSheet:
+              properties:
+                  gridProperties:
+                      columnCount: 10
+                      rowCount: 20
+                  title: test_create_tab
+sheets.spreadsheets.get:
+    - null
+    - sheets:
+          - properties:
+                gridProperties:
+                    columnCount: 2
+                    frozenRowCount: 1
+                    rowCount: 5
+                index: 1
+                sheetId: 1945916913
+                sheetType: GRID
+                title: test_create_tab

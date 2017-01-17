@@ -1,0 +1,26 @@
+drive.files.list:
+    - null
+    - files:
+         - id: xyz1234
+           mimeType: application/vnd.google-apps.spreadsheet
+           name: gsheets_test_1
+           webViewLink: https://docs.google.com/spreadsheets/d/xyz1234/edit?usp=drivesdk
+sheets.spreadsheets.batchUpdate:
+    - null
+    - replies: [{}]
+      spreadsheetId: xyz1234
+    - requests:
+          - deleteSheet:
+                sheetId: 1945916913
+sheets.spreadsheets.get:
+    - null
+    - sheets:
+          - properties:
+                gridProperties:
+                    columnCount: 2
+                    frozenRowCount: 1
+                    rowCount: 5
+                index: 1
+                sheetId: 1945916913
+                sheetType: GRID
+                title: test_delete_workbook
