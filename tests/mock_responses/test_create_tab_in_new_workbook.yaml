@@ -1,0 +1,44 @@
+drive.files.create:
+    - null
+    - id: xyz4567
+      kind: drive#file
+      mimeType: application/vnd.google-apps.spreadsheet
+      name: test_create_workbook
+    - mimeType: application/vnd.google-apps.spreadsheet
+      name: new_workbook
+      parents:
+          - xyz0123
+drive.files.get:
+    - null
+    - id: xyz0123
+drive.files.list:
+    - null
+    - files:
+         - id: xyz2345
+           mimeType: application/vnd.google-apps.spreadsheet
+           name: existing_workbook
+           modifiedTime: '2014-05-14T10:10:11.360Z'
+           webViewLink: https://docs.google.com/spreadsheets/d/xyz2345/edit?usp=drivesdk
+sheets.spreadsheets.batchUpdate:
+    - null
+    - replies:
+          - addSheet:
+              properties:
+                  gridProperties:
+                      columnCount: 26
+                      rowCount: 1000
+                  index: 1
+                  sheetId: 1162009294
+                  title: new_tab
+      spreadsheetId: xyz1234
+sheets.spreadsheets.get:
+    - null
+    - sheets:
+          - properties:
+                gridProperties:
+                    columnCount: 26
+                    rowCount: 1000
+                index: 1
+                sheetId: 1162009294
+                sheetType: GRID
+                title: new_tab

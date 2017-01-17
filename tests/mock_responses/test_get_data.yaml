@@ -1,0 +1,100 @@
+drive.files.list:
+    - null
+    - files:
+         - id: xyz1234
+           mimeType: application/vnd.google-apps.spreadsheet
+           name: gsheets_test_1
+           webViewLink: https://docs.google.com/spreadsheets/d/xyz1234/edit?usp=drivesdk
+sheets.spreadsheets.get:
+    - null
+    - sheets:
+          - properties:
+                gridProperties:
+                    columnCount: 26
+                    rowCount: 1000
+                index: 1
+                sheetId: 1945916913
+                sheetType: GRID
+                title: test_tab
+            data:
+                # 3 headers, one row with 4 rows of data, one blank column
+                 - rowData:
+                       - values:
+                             - effectiveValue:
+                                   stringValue: a
+                             - effectiveValue:
+                                   numberValue: 1.23
+                             - effectiveValue:
+                                   stringValue: this is a sentence.
+                       - values:
+                             - effectiveFormat:
+                                   numberFormat:
+                                         type: CURRENCY
+                               effectiveValue:
+                                   numberValue: 3.23
+                             - effectiveValue:
+                                   numberValue: 7
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: DATE
+                               effectiveValue:
+                                   numberValue: 42370
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: CURRENCY
+                       - {}
+                       - values:
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: DATE_TIME
+                               effectiveValue:
+                                   numberValue: 40397.67569444444
+                             - effectiveValue:
+                                   boolValue: True
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: PERCENT
+                               effectiveValue:
+                                   numberValue: 0.19
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: PERCENT
+                               effectiveValue:
+                                   numberValue: 0.54
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: CURRENCY
+                       - values:
+                             - {}
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: TIME
+                               effectiveValue:
+                                   numberValue: 0.41875
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: CURRENCY
+                               effectiveValue:
+                                   numberValue: 3.23
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: PERCENT
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: CURRENCY
+                       - values:
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: TIME
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: DATE_TIME
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: PERCENT
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: PERCENT
+                             - effectiveFormat:
+                                   numberFormat:
+                                       type: CURRENCY

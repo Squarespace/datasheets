@@ -1,0 +1,77 @@
+drive.files.create:
+    - null
+    - id: xyz4567
+      kind: drive#file
+      mimeType: application/vnd.google-apps.spreadsheet
+      name: test_create_workbook
+    - mimeType: application/vnd.google-apps.spreadsheet
+      name: test_create_workbook
+      parents:
+          - xyz0123
+          - xyz5678
+drive.files.delete:
+    - null
+    - null
+drive.files.get:
+    - null
+    - id: xyz0123
+drive.files.list:
+    - null
+    - files:
+         - id: xyz1234
+           mimeType: application/vnd.google-apps.spreadsheet
+           name: gsheets_test_1
+           modifiedTime: '2013-02-20T05:38:12.440Z'
+           webViewLink: https://docs.google.com/spreadsheets/d/xyz1234/edit?usp=drivesdk
+         - id: xyz2345
+           mimeType: application/vnd.google-apps.spreadsheet
+           name: gsheets_test_2
+           modifiedTime: '2014-05-14T10:10:11.360Z'
+           webViewLink: https://docs.google.com/spreadsheets/d/xyz2345/edit?usp=drivesdk
+         - id: xyz3456
+           mimeType: application/vnd.google-apps.spreadsheet
+           name: gsheets_test_3
+           modifiedTime: '2015-10-31T03:14:15.926Z'
+           webViewLink: https://docs.google.com/spreadsheets/d/xyz3456/edit?usp=drivesdk
+         - id: xyz4567
+           mimeType: application/vnd.google-apps.spreadsheet
+           name: gsheets_test_3
+           modifiedTime: '2014-12-30T12:09:10.216Z'
+           webViewLink: https://docs.google.com/spreadsheets/d/xyz4567/edit?usp=drivesdk
+         - id: xyz5678
+           mimeType: application/vnd.google-apps.folder
+           name: gsheets_test_folder_1
+           modifiedTime: '2014-12-30T12:09:10.216Z'
+           webViewLink: https://docs.google.com/spreadsheets/d/xyz5678/edit?usp=drivesdk
+         - id: xyz6789
+           mimeType: application/vnd.google-apps.folder
+           name: gsheets_test_folder_2
+           modifiedTime: '2014-12-30T12:09:10.216Z'
+           webViewLink: https://docs.google.com/spreadsheets/d/xyz6789/edit?usp=drivesdk
+drive.permissions.create:
+    - null
+    - id: 08004950760535962923
+      kind: drive#permission
+      role: owner
+      type: user
+    - type: user
+      role: reader
+      emailAddress: add_permission@testdomain.test
+drive.permissions.delete:
+    - null
+    - ''
+drive.permissions.get:
+    - null
+    - emailAddress: get_permission_id@testdomain.test
+drive.permissions.list:
+    - null
+    - kind: drive#permissionList
+      permissions:
+          - id: 15375041453037031415
+            kind: drive#permission
+            role: owner
+            type: user
+          - id: 36294819252019234917
+            kind: drive#permission
+            role: writer
+            type: domain

@@ -1,0 +1,55 @@
+drive.files.list:
+    - null
+    - files:
+         - id: xyz1234
+           mimeType: application/vnd.google-apps.spreadsheet
+           name: gsheets_test_1
+           webViewLink: https://docs.google.com/spreadsheets/d/xyz1234/edit?usp=drivesdk
+sheets.spreadsheets.get:
+    - null
+    - sheets:
+          - properties:
+                gridProperties:
+                    columnCount: 26
+                    rowCount: 1000
+                index: 1
+                sheetId: 1945916913
+                sheetType: GRID
+                title: test_tab
+            data:
+                - {}
+sheets.spreadsheets.values.clear:
+    - null
+    - clearedRange: test_get_tab!A1:Z1000
+    - {}
+sheets.spreadsheets.values.update:
+    - null
+    - spreadsheetId: xyz1234
+      updatedCells: 12
+      updatedColumns: 4
+      updatedRange: test_tab!A1:D5
+      updatedRows: 4
+    - values:
+          - ['a', 1.23, 'this is a sentence.']
+          - [3.23, 7.0, '2016-01-01', null]
+          - []
+          - ['2010-08-07 16:13:00', True, 0.19, 0.54, null]
+          - [null, '10:03:00', 3.23, null, null]
+          - [null, null, null, null, null]
+sheets.spreadsheets.values.append:
+    - null
+    - spreadsheetId: xyz1234
+      tableRange: test_tab!A4:D5
+      updates:
+          spreadsheetId: xyz1234
+          updatedCells: 12
+          updatedColumns: 4
+          updatedRange: Sheet5!A6:D10
+          updatedRows: 4
+    - values:
+          - ['a', 1.23, 'this is a sentence.']
+          - [3.23, 7.0, '2016-01-01', null]
+          - []
+          - ['2010-08-07 16:13:00', True, 0.19, 0.54, null]
+          - [null, '10:03:00', 3.23, null, null]
+          - [null, null, null, null, null]

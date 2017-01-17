@@ -1,0 +1,2 @@
+include .dev_version_suffix
+recursive-include tests *.yaml *.json

@@ -1,0 +1,27 @@
+drive.files.list:
+    - null
+    - files:
+         - id: xyz1234
+           mimeType: application/vnd.google-apps.spreadsheet
+           name: gsheets_test_1
+           webViewLink: https://docs.google.com/spreadsheets/d/xyz1234/edit?usp=drivesdk
+sheets.spreadsheets.batchUpdate:
+    - null
+    - replies:
+          - addSheet:
+              properties:
+                  gridProperties:
+                      columnCount: 5
+                      rowCount: 15
+                  index: 1
+                  sheetId: 1162009294
+                  title: test_batch_update
+      spreadsheetId: xyz1234
+    - requests:
+          - addSheet:
+              properties:
+                  gridProperties:
+                      columnCount: 5
+                      rowCount: 15
+                  title: test_batch_update
+

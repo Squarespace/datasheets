@@ -1,0 +1,16 @@
+drive.files.list:
+    - null
+    - files:
+         - id: xyz1234
+           mimeType: application/vnd.google-apps.spreadsheet
+           name: gsheets_test_1
+           webViewLink: https://docs.google.com/spreadsheets/d/xyz1234/edit?usp=drivesdk
+sheets.spreadsheets.get:
+    - null
+    - sheets:
+          - properties:
+                title: test_tab_1
+          - properties:
+                title: test_tab_2
+          - properties:
+                title: test_tab_3
