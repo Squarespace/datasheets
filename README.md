@@ -8,6 +8,8 @@ data to, and modifying the formatting of Google Sheets. It is built on top of Go
 
 It can be installed with pip via `pip install datasheets`.
 
+Detailed documentation can be found at [here](https://datasheets.readthedocs.io/en/latest/).
+
 
 ## Basic Usage
 
@@ -37,6 +39,8 @@ client.fetch_workbooks_info()
 # Show tabs within a given workbook
 workbook.fetch_tab_names()
 ```
+
+For further information, see the documentation [here](https://datasheets.readthedocs.io/en/latest/).
 
 
 ## Copyright and License
