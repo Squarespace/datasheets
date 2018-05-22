@@ -1,0 +1,10 @@
+sheets:
+    - data:
+          # 3 headers, one row with 4 rows of data, one blank column
+           - rowData:
+                 - values:
+                       - effectiveFormat:
+                             numberFormat:
+                                   type: DATE
+                         effectiveValue:
+                             stringValue: "2015-05-03"

@@ -1,0 +1,10 @@
+# It is quite possible that testing would work with lower versions of
+# these packages but only the pinned versions have been tested
+
+coverage>=4.5.1
+pytest-mock>=1.9.0
+pytest>=3.0.5
+PyYAML>=3.12
+sphinx>=1.7.4
+sphinx_rtd_theme>=0.3.1
+tox>=3.0.0
