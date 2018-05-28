@@ -1,5 +1,10 @@
 datasheets
 ==========
+|travis_ci|
+
+.. |travis_ci| image:: https://travis-ci.org/Squarespace/datasheets.svg?branch=master
+    :target: https://travis-ci.org/Squarespace/datasheets
+
 
 datasheets is a library for interfacing with Google Sheets, including reading data from, writing
 data to, and modifying the formatting of Google Sheets. It is built on top of Google's
