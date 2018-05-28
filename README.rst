@@ -1,9 +1,12 @@
 datasheets
 ==========
-|travis_ci|
+|travis_ci| |coveralls|
 
 .. |travis_ci| image:: https://travis-ci.org/Squarespace/datasheets.svg?branch=master
     :target: https://travis-ci.org/Squarespace/datasheets
+
+.. |coveralls| image:: https://coveralls.io/repos/github/Squarespace/datasheets/badge.svg?branch=master
+    :target: https://coveralls.io/github/Squarespace/datasheets?branch=master
 
 
 datasheets is a library for interfacing with Google Sheets, including reading data from, writing
