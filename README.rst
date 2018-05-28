@@ -1,6 +1,9 @@
 datasheets
 ==========
-|travis_ci| |coveralls|
+|pip_versions| |travis_ci| |coveralls|
+
+.. |pip_versions| image:: https://img.shields.io/pypi/pyversions/datasheets.svg
+    :target: https://pypi.python.org/pypi/datasheets
 
 .. |travis_ci| image:: https://travis-ci.org/Squarespace/datasheets.svg?branch=master
     :target: https://travis-ci.org/Squarespace/datasheets
