@@ -1,5 +1,5 @@
-Overview
-========
+datasheets
+==========
 
 datasheets is a library for interfacing with Google Sheets, including reading data from, writing
 data to, and modifying the formatting of Google Sheets. It is built on top of Google's
@@ -13,14 +13,21 @@ data to, and modifying the formatting of Google Sheets. It is built on top of Go
 
 It can be installed with pip via ``pip install datasheets``.
 
+Detailed information can be found in the `documentation`_.
+
+.. _documentation: https://datasheets.readthedocs.io/en/latest/
+
 
 Basic Usage
 -----------
-
 Get the necessary OAuth credentials from the Google Developer Console as described
-in :ref:`Getting OAuth Credentials`.
+in `Getting OAuth Credentials`_.
 
-After that, using datasheets looks like: ::
+.. _Getting OAuth Credentials: https://datasheets.readthedocs.io/en/latest/getting_oauth_credentials.html
+
+After that, using datasheets looks like:
+
+.. code-block:: python
 
     import datasheets
 
@@ -44,20 +51,19 @@ After that, using datasheets looks like: ::
     # Show tabs within a given workbook
     workbook.fetch_tab_names()
 
+For further information, see the `documentation`_.
 
-Documentation Contents
-----------------------
-.. toctree::
-    :maxdepth: 3
 
-    self
-    functionality
-    getting_oauth_credentials
-    comparison_to_gspread
-    api_reference
-    development
+License
+-------
+Copyright 2018 Squarespace, INC.
 
-Indices and tables
-------------------
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in
+compliance with the License. You may obtain a copy of the License at:
 
-* :ref:`genindex`
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is
+distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing permissions and limitations under the
+License.
