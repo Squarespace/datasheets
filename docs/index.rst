@@ -7,7 +7,7 @@ data to, and modifying the formatting of Google Sheets. It is built on top of Go
 `Google Sheets v4`_ REST APIs.
 
 .. _google-api-python-client: https://github.com/google/google-api-python-client
-.. _oauth2client: https://github.com/google/oauth2client) libraries using the
+.. _oauth2client: https://github.com/google/oauth2client
 .. _Google Drive v3: https://developers.google.com/drive/v3/reference/
 .. _Google Sheets v4: https://developers.google.com/sheets/reference/rest/
 

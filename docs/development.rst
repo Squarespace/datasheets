@@ -14,8 +14,7 @@ Various testing functionality exists:
 
     * ``make test`` - Run tests for both Python 2 and 3
     * ``pytest`` - Run tests for whichever Python version is in your virtualenv
-    * ``make package_coverage`` - Check package coverage
-    * ``make all_coverage`` - Check package and test coverage
+    * ``make coverage`` - Check code coverage
 
 Manual tests also exist in the ``tests/manual_testing.ipynb`` Jupyter Notebook. To run the manual
 tests, install Jupyter Notebook (``pip install jupyter notebook``), then run ``jupyter notebook``,
