@@ -21,7 +21,7 @@ def get_version():
 required = [
     'pandas',
     'numpy',
-    'oauth2client>=2.0.2',
+    'oauth2client>=2.0.2',  # Bugs in 2.0.1 and below
     'google-api-python-client>=1.5.4',
     'six>=1.10.0',  # required by google-api-python-client but not installed by it
     'PyOpenSSL',  # used by oauth2client
