@@ -32,4 +32,5 @@ If you make a PR that gets merged into master, a new version of datasheets can b
     * ``git tag x.x.x -F tag_message``
     * ``git push --tags origin master``
 
-3. Run ``make release-pypi``.
+3. Run ``make release_pypitest`` to test that you can release to pypi.
+4. Run ``make release_pypi`` to actually push the release to pypi.
