@@ -90,8 +90,7 @@ class Client(object):
         return self.credentials.authorize(httplib2.Http())
 
     def _refresh_token_if_needed(self):
-        credentials_expired = self.credentials.token_expiry < dt.datetime.utcnow()
-        if credentials_expired and not self.is_service:
+        if not self.is_service and self.credentials.token_expiry < dt.datetime.utcnow():
             self.credentials.refresh(self.http)
 
     def _retrieve_client_credentials(self):
