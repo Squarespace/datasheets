@@ -8,7 +8,7 @@ datasheets
 .. |travis_ci| image:: https://travis-ci.org/Squarespace/datasheets.svg?branch=master
     :target: https://travis-ci.org/Squarespace/datasheets
 
-.. |coveralls| image:: https://coveralls.io/repos/github/Squarespace/datasheets/badge.svg?branch=master
+.. |coveralls| image:: https://coveralls.io/repos/github/Squarespace/datasheets/badge.svg?branch=master&service=github
     :target: https://coveralls.io/github/Squarespace/datasheets?branch=master
 
 
