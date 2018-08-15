@@ -67,10 +67,7 @@ To set this up:
     .. image:: images/create_oauth_client_id_button.png
         :scale: 65%
 
-3. Select 'Web application', input a name, and enter Authorized JavaScript origins and Authorized
-   redirect URIs. The Authorized JavaScript origins are ``http://localhost:8888`` and
-   ``http://localhost:8080``. The Authorized redirect URIs are the same **except with a forward
-   slash (/) appended**.
+3. Select 'Other' to create an internal app and  input a name.
 
     |
 

@@ -55,13 +55,6 @@ def test_getattribute_for_private_method(mock_client):
     assert mock_client._refresh_token_if_needed.call_count == 1
 
 
-def test_getattribute_for_user_facing_method_without_credentials(mocker, mock_client):
-    mocker.patch.object(mock_client, 'fetch_workbook', return_value='foo')
-    mock_client.fetch_workbook()
-    # _refresh_token_if_needs is called in __init__(); verify it wasn't called again
-    assert mock_client._refresh_token_if_needed.call_count == 1
-
-
 def test_getattribute_for_user_facing_method_with_credentials(mocker, mock_client):
     mock_client.credentials = 'foo'
     mocker.patch.object(mock_client, 'fetch_workbook', return_value='foo')

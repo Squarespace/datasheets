@@ -69,8 +69,7 @@ class Client(object):
         requested_attr = super(Client, self).__getattribute__(attr)
 
         if isinstance(requested_attr, types.MethodType) \
-           and not attr.startswith('_') \
-           and hasattr(self, 'credentials'):
+           and not attr.startswith('_'):
             self._refresh_token_if_needed()
 
         return requested_attr
