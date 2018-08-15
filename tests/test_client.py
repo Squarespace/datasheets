@@ -431,6 +431,7 @@ def test_stores_credentials_when_not_found(mocker):
                         return_value=credentials, autospec=True)
     client = datasheets.Client()
     client.use_storage = True
+    client.email = "Test"
     client._retrieve_client_credentials()
     with open(os.environ['DATASHEETS_CREDENTIALS_PATH']) as file:
         assert file.read() == '{"refresh_token": "refresh_token", "client_id": "client_id", "client_secret": "client_secret"}'
