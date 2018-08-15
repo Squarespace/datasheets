@@ -1,5 +1,6 @@
 import apiclient
 import os
+import json
 import pandas as pd
 import pytest
 from google.oauth2.credentials import Credentials as base_credentials
@@ -434,7 +435,8 @@ def test_stores_credentials_when_not_found(mocker):
     client.email = "Test"
     client._retrieve_client_credentials()
     with open(os.environ['DATASHEETS_CREDENTIALS_PATH']) as file:
-        assert file.read() == '{"refresh_token": "refresh_token", "client_id": "client_id", "client_secret": "client_secret"}'
+        expected_string = '{"refresh_token": "refresh_token", "client_id": "client_id", "client_secret": "client_secret"}'
+        assert json.loads(file.read()) == json.loads(expected_string)
     os.remove(os.environ['DATASHEETS_CREDENTIALS_PATH'])
 
 
