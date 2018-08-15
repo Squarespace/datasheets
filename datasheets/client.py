@@ -109,7 +109,7 @@ class Client(object):
             credential_path = os.path.expanduser(unexpanded_credential_path)
             try:
                 credentials = Credentials.from_authorized_user_file(credential_path)
-            except FileNotFoundError:
+            except IOError:
                 credentials = self._fetch_new_client_credentials()
                 data = {
                         "refresh_token": credentials.refresh_token,
