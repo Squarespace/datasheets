@@ -341,7 +341,7 @@ def test_get_service_credentials_envvar_set(mocker, tmpdir):
 
 
 @pytest.mark.usefixtures('clear_envvars')
-def test_fetch_new_client_credentials_envvar_set(tmpdir):
+def test_fetch_new_client_credentials_envvar_set(mocker, tmpdir):
     # Use a non-standard filename and file ending to ensure they work
     file_path = tmpdir.join('my_client_secrets_file.foo')
     # Credentials were built by taking an existing secrets file and manually smudging it
@@ -358,7 +358,11 @@ def test_fetch_new_client_credentials_envvar_set(tmpdir):
     """)
     os.environ['DATASHEETS_SECRETS_PATH'] = file_path.strpath
 
-    flow = InstalledAppFlow.from_client_secrets_file(os.environ['DATASHEETS_SECRETS_PATH'] , [])
+    mocker.patch.object(datasheets.Client, '__init__', return_value=None)
+    mocker.patch.object(InstalledAppFlow, 'run_local_server', autospec=True, side_effect=lambda self, port: self)
+    client = datasheets.Client()
+    client.user_agent = "Test"
+    flow = client._fetch_new_client_credentials()
     config = flow.client_config
     assert isinstance(flow, InstalledAppFlow)
     assert config["client_id"] == '562803761647-1lj6fdt4rk27qde3f61slphbqcr9mieh.apps.googleusercontent.com'
