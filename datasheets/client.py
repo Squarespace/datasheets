@@ -1,17 +1,16 @@
-import datetime as dt
-import httplib2
 import json
 import os
 import types
-import warnings
 
 import apiclient
-import oauth2client
-from oauth2client.service_account import ServiceAccountCredentials
 import pandas as pd
 
 from datasheets import exceptions, helpers
 from datasheets.workbook import Workbook
+from google.oauth2 import service_account
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
 
 
 class Client(object):
@@ -50,10 +49,10 @@ class Client(object):
         self.use_storage = storage
         self.user_agent = user_agent
 
-        self.http = self._authenticate()
-        self.drive_svc = apiclient.discovery.build('drive', 'v3', http=self.http)
+        self._authenticate()
+        self.drive_svc = apiclient.discovery.build('drive', 'v3', credentials=self.credentials)
         # Bind sheets_svc directly to .spreadsheets() as the API exposes no other functionality
-        self.sheets_svc = apiclient.discovery.build('sheets', 'v4', http=self.http).spreadsheets()
+        self.sheets_svc = apiclient.discovery.build('sheets', 'v4', credentials=self.credentials).spreadsheets()
 
         self._refresh_token_if_needed()
 
@@ -87,11 +86,10 @@ class Client(object):
             self.credentials = self._get_service_credentials()
         else:
             self.credentials = self._retrieve_client_credentials()
-        return self.credentials.authorize(httplib2.Http())
 
     def _refresh_token_if_needed(self):
-        if not self.is_service and (self.credentials.token_expiry < dt.datetime.utcnow()):
-            self.credentials.refresh(self.http)
+        if not self.is_service or self.credentials.expired:
+            self.credentials.refresh(Request())
 
     def _retrieve_client_credentials(self):
         """Get valid user credentials
@@ -111,23 +109,23 @@ class Client(object):
             unexpanded_credential_path = os.environ.get('DATASHEETS_CREDENTIALS_PATH',
                                                         '~/.datasheets/client_credentials.json')
             credential_path = os.path.expanduser(unexpanded_credential_path)
-            store = oauth2client.file.Storage(credential_path)
-            # If the client credentials file does not yet exist then oauth2client will throw
-            # a warning that isn't useful; to avoid end-user confusion we suppress it
-            with warnings.catch_warnings():
-                warnings.simplefilter('ignore')
-                credentials = store.get()
+            try:
+                credentials = Credentials.from_authorized_user_file(credential_path)
+            except FileNotFoundError:
+                credentials = self._fetch_new_client_credentials()
+                data = {
+                        "refresh_token": credentials.refresh_token,
+                        "client_id": credentials.client_id,
+                        "client_secret": credentials.client_secret
+                        }
+
+                with open(credential_path, "w+") as f:
+                    json.dump(data, f)
         else:
-            store = helpers._MockStorage()
-            credentials = None
-
-        if not credentials or credentials.invalid:
-            credentials = self._fetch_new_client_credentials(store)
-
-        self.email = credentials.id_token['email']
+            credentials = self._fetch_new_client_credentials()
         return credentials
 
-    def _fetch_new_client_credentials(self, store):
+    def _fetch_new_client_credentials(self):
         """Fetch new user credentials
 
         Uses the secrets stored at ``$DATASHEETS_SECRETS_PATH``
@@ -136,14 +134,12 @@ class Client(object):
         unexpanded_client_secrets_path = os.environ.get('DATASHEETS_SECRETS_PATH',
                                                         '~/.datasheets/client_secrets.json')
         client_secrets_path = os.path.expanduser(unexpanded_client_secrets_path)
-        scope = ('https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/userinfo.email')
-        flow = oauth2client.client.flow_from_clientsecrets(client_secrets_path, scope=scope)
-        flow.params['access_type'] = 'offline'  # Allow refreshing expired access tokens
+        scope = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/plus.me']
+        flow = InstalledAppFlow.from_client_secrets_file(
+            client_secrets_path,
+            scopes=scope)
         flow.user_agent = self.user_agent
-
-        with helpers._suppress_stdout():
-            with helpers._remove_sys_argv():
-                return oauth2client.tools.run_flow(flow, store)
+        return flow.run_local_server(port=8081)
 
     def _fetch_file_id(self, filename, kind):
         """Return the file_id for the Google Drive file with the specified filename (i.e. title).
@@ -254,9 +250,9 @@ class Client(object):
             keyfile_dict = json.load(f)
 
         self.email = keyfile_dict['client_email']  # used in __repr__
-        return ServiceAccountCredentials.from_json_keyfile_dict(
-            keyfile_dict=keyfile_dict,
-            scopes=('https://www.googleapis.com/auth/drive',)
+        return service_account.Credentials.from_service_account_file(
+            service_key_path,
+            scopes=['https://www.googleapis.com/auth/drive']
         )
 
     def create_workbook(self, filename, folders=()):

@@ -57,7 +57,7 @@ def sheets_svc():
 @pytest.fixture
 def mock_client(mocker, drive_svc, sheets_svc):
     mocker.patch('datasheets.Client._authenticate')
-    mocker.patch('datasheets.Client.http', create=True)
+    mocker.patch('datasheets.Client.credentials', create=True)
     mocker.patch('apiclient.discovery.build', autospec=True,
                  side_effect=[drive_svc, sheets_svc])
     mocker.patch('datasheets.Client._refresh_token_if_needed')

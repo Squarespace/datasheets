@@ -6,7 +6,9 @@ import pandas as pd
 import pytest
 
 import datasheets
-
+from google.oauth2.service_account import Credentials as service_credentials
+from google.oauth2.credentials import Credentials as base_credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
 
 @pytest.fixture
 def clear_envvars():
@@ -341,47 +343,32 @@ def test_get_service_credentials_envvar_set(mocker, tmpdir):
     mocker.patch.object(datasheets.Client, '__init__', return_value=None)
     client = datasheets.Client()
     credentials = client._get_service_credentials()
-    assert isinstance(credentials, oauth2client.service_account.ServiceAccountCredentials)
+    assert isinstance(credentials, service_credentials)
     assert client.email == 'datasheets-service@datasheets-etl.iam.gserviceaccount.com'
 
 
 @pytest.mark.usefixtures('clear_envvars')
-def test_fetch_new_client_credentials_envvar_set(mocker, tmpdir):
-    mocked_run_flow = mocker.patch('oauth2client.tools.run_flow', autospec=True)
+def test_fetch_new_client_credentials_envvar_set(tmpdir):
     # Use a non-standard filename and file ending to ensure they work
     file_path = tmpdir.join('my_client_secrets_file.foo')
     # Credentials were built by taking an existing secrets file and manually smudging it
     file_path.write(r"""
         {
-            "web": {
-                "client_id":"562138271922-9kt0cvbh78fv0p24b4b76uj0b5vq7e0o.apps.googleusercontent.com",
-                "project_id":"datasheets-etl",
+            "installed": {
+                "client_id":"562803761647-1lj6fdt4rk27qde3f61slphbqcr9mieh.apps.googleusercontent.com",
+                "project_id":"gsheets-etl",
                 "auth_uri":"https://accounts.google.com/o/oauth2/auth",
-                "token_uri":"https://accounts.google.com/o/oauth2/token",
+                "token_uri":"https://www.googleapis.com/oauth2/v3/token",
                 "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
-                "client_secret":"GIacz91bpsk2j1hIEUVyzpjq",
-                "redirect_uris":["http://localhost:8080/","http://localhost:8888/"],
-                "javascript_origins":["http://localhost:8080","http://localhost:8888"]
-                }
-        }
+                "client_secret":"yMWIX9SijX-nUgvFGqkzoSBb",
+                "redirect_uris":["urn:ietf:wg:oauth:2.0:oob","http://localhost"]}}
     """)
     os.environ['DATASHEETS_SECRETS_PATH'] = file_path.strpath
 
-    mocker.patch.object(datasheets.Client, '__init__', return_value=None)
-    client = datasheets.Client()
-    client.user_agent = 'Python datasheets library'  # Manually set this since we skipped __init__
-    store = datasheets.helpers._MockStorage()
-    # Normally we would get credentials back, but since we mock run_flow() we just get a
-    # mock; we will instead inspect the input to run_flow(), i.e. the `flow` argument
-    _ = client._fetch_new_client_credentials(store)
-
-    assert mocked_run_flow.call_count == 1
-    _, args, _ = mocked_run_flow.mock_calls[0]
-    flow = args[0]
-    assert isinstance(flow, oauth2client.client.OAuth2WebServerFlow)
-    assert flow.client_id == '562138271922-9kt0cvbh78fv0p24b4b76uj0b5vq7e0o.apps.googleusercontent.com'
-    assert flow.user_agent == 'Python datasheets library'
-    assert flow.params.get('access_type') == 'offline'
+    flow = InstalledAppFlow.from_client_secrets_file(os.environ['DATASHEETS_SECRETS_PATH'] , [])
+    config = flow.client_config
+    assert isinstance(flow, InstalledAppFlow)
+    assert config["client_id"] == '562803761647-1lj6fdt4rk27qde3f61slphbqcr9mieh.apps.googleusercontent.com'
 
 
 @pytest.mark.usefixtures('clear_envvars')
@@ -430,8 +417,8 @@ def test_retrieve_client_credentials_use_storage_and_envvar_set(mocker, tmpdir):
     client.use_storage = True
     credentials = client._retrieve_client_credentials()
     assert mocked_fetch_new.call_count == 0
-    assert client.email == 'datasheets@test.com'
-    assert isinstance(credentials, oauth2client.client.OAuth2Credentials)
+    print(type(credentials))
+    assert isinstance(credentials, base_credentials)
 
 
 def test_retrieve_client_credentials_no_storage(mocker):

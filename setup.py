@@ -19,6 +19,8 @@ def get_version():
 
 
 required = [
+    'google_auth',
+    'google_auth_oauthlib',
     'pandas',
     'numpy',
     'oauth2client>=2.0.2',  # Bugs in 2.0.1 and below
