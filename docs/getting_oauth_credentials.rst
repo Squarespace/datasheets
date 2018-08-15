@@ -67,7 +67,7 @@ To set this up:
     .. image:: images/create_oauth_client_id_button.png
         :scale: 65%
 
-3. Select 'Other' to create an internal app and  input a name.
+3. Select 'Other' to create an installed app and input a name.
 
     |
 

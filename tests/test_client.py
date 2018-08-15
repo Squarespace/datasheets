@@ -1,14 +1,13 @@
-import os
-
 import apiclient
-import oauth2client
+import os
 import pandas as pd
 import pytest
+from google.oauth2.credentials import Credentials as base_credentials
+from google.oauth2.service_account import Credentials as service_credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
 
 import datasheets
-from google.oauth2.service_account import Credentials as service_credentials
-from google.oauth2.credentials import Credentials as base_credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
+
 
 @pytest.fixture
 def clear_envvars():
@@ -410,7 +409,6 @@ def test_retrieve_client_credentials_use_storage_and_envvar_set(mocker, tmpdir):
     client.use_storage = True
     credentials = client._retrieve_client_credentials()
     assert mocked_fetch_new.call_count == 0
-    print(type(credentials))
     assert isinstance(credentials, base_credentials)
 
 
