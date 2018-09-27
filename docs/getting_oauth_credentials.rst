@@ -69,14 +69,6 @@ To set this up:
 
 3. Select 'Other' to create an installed app and input a name.
 
-    |
-
-    .. note:: Don't forget the forward slash at the end of the Authorized redirect URIs or you will
-        get an error!
-
-    .. image:: images/create_oauth_client_settings.png
-        :scale: 65%
-
 4. After clicking 'Create' and then 'Ok' on the following screen, click the download button.
 
     .. image:: images/download_oauth_client_secrets.png
