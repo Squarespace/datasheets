@@ -132,7 +132,11 @@ class Client(object):
         unexpanded_client_secrets_path = os.environ.get('DATASHEETS_SECRETS_PATH',
                                                         '~/.datasheets/client_secrets.json')
         client_secrets_path = os.path.expanduser(unexpanded_client_secrets_path)
-        scope = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/plus.me']
+        scope = [
+            'https://www.googleapis.com/auth/drive',
+            'https://www.googleapis.com/auth/userinfo.email',
+            'https://www.googleapis.com/auth/plus.me'
+        ]
         flow = InstalledAppFlow.from_client_secrets_file(
             client_secrets_path,
             scopes=scope)
