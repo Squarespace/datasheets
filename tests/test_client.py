@@ -427,22 +427,21 @@ def test_retrieve_client_credentials_no_storage(mocker):
     assert credentials == mocked_fetch_new()
 
 
-def test_stores_credentials_when_not_found(mocker):
+def test_stores_credentials_when_not_found(mocker, tmpdir):
     credentials = base_credentials("token", refresh_token="refresh_token", client_id="client_id",
                                    client_secret="client_secret")
 
-    os.environ['DATASHEETS_CREDENTIALS_PATH'] = "./test_stores_credentials_when_not_found.json"
+    file_path = tmpdir.join("test_stores_credentials_when_not_found.json")
+    os.environ['DATASHEETS_CREDENTIALS_PATH'] = file_path.strpath
     mocker.patch.object(datasheets.Client, '__init__', return_value=None)
     mocker.patch.object(datasheets.Client, '_fetch_new_client_credentials',
                         return_value=credentials, autospec=True)
     client = datasheets.Client()
     client.use_storage = True
-    client.email = "Test"
     client._retrieve_client_credentials()
     with open(os.environ['DATASHEETS_CREDENTIALS_PATH']) as file:
         expected_string = '{"refresh_token": "refresh_token", "client_id": "client_id", "client_secret": "client_secret"}'
         assert json.loads(file.read()) == json.loads(expected_string)
-    os.remove(os.environ['DATASHEETS_CREDENTIALS_PATH'])
 
 
 def test_create_workbook_no_folder(mocker, mock_client):
