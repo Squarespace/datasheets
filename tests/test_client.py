@@ -360,7 +360,7 @@ def test_fetch_new_client_credentials_envvar_set(mocker, tmpdir):
     os.environ['DATASHEETS_SECRETS_PATH'] = file_path.strpath
 
     mocker.patch.object(datasheets.Client, '__init__', return_value=None)
-    mocker.patch.object(InstalledAppFlow, 'run_local_server', autospec=True, side_effect=lambda self, port: self)
+    mocker.patch.object(InstalledAppFlow, 'run_local_server', autospec=True, side_effect=lambda appflow_instance, port: appflow_instance)
     client = datasheets.Client()
     client.user_agent = "Test"
     flow = client._fetch_new_client_credentials()
