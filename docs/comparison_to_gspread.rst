@@ -14,9 +14,9 @@ for this project. datasheets attempts to improve on gspread by:
 * Providing a number of additional tools for interacting with Google Sheets: format them, add/remove
   rows and columns, create or delete tabs and workbooks, share or unshare a workbook with users,
   etc. See below for more details.
-* Using more modern, Google-maintained tools (e.g. Google's `google-api-python-client`_ and `oauth2client`_
+* Using more modern, Google-maintained tools (e.g. Google's `google-api-python-client`_ and `google_auth`_
   libraries) as opposed to parsing XML feeds.
 
 .. _gspread: https://github.com/burnash/gspread
 .. _google-api-python-client: https://github.com/google/google-api-python-client
-.. _oauth2client: https://github.com/google/oauth2client) libraries using the
+.. _google_auth: https://github.com/GoogleCloudPlatform/google-auth-library-python

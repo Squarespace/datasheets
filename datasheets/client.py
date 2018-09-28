@@ -244,7 +244,7 @@ class Client(object):
         time this method returns the instance has not yet been authenticated / authorized.
 
         Returns:
-            oauth2client.service_account.ServiceAccountCredentials: instance of service credentials
+            google.oauth2.service_account.Credentials: instance of service credentials
         """
         unexpanded_service_key_path = os.environ.get('DATASHEETS_SERVICE_PATH',
                                                      '~/.datasheets/service_key.json')

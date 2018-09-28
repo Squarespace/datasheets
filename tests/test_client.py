@@ -402,9 +402,7 @@ def test_retrieve_client_credentials_use_storage_and_envvar_set(mocker, tmpdir):
         "token_type": "Bearer"},
         "scopes": ["https://www.googleapis.com/auth/drive", "https://www.googleapis.com/auth/userinfo.email"],
         "token_info_uri": "https://www.googleapis.com/oauth2/v3/tokeninfo",
-        "invalid": false,
-        "_class": "OAuth2Credentials",
-        "_module": "oauth2client.client"
+        "invalid": false
     }""")
     os.environ['DATASHEETS_CREDENTIALS_PATH'] = file_path.strpath
 

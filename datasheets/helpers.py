@@ -10,8 +10,6 @@ import sys
 
 import numpy as np
 import pandas as pd
-from oauth2client.client import AccessTokenCredentialsError
-from oauth2client.file import Storage
 
 # Note: dates, times, and datetimes in Google Sheets are represented in 'serial number' format
 # as explained here: https://developers.google.com/sheets/reference/rest/v4/DateTimeRenderOption
@@ -216,42 +214,6 @@ def _resize_row(array, new_len):
         return array + padding
 
 
-@contextlib.contextmanager
-def _remove_sys_argv():
-    """Temporarily removing sys.argv
-
-    The authentication flow within Jupyter Notebooks errors because argparse tries to parse
-    sys.argv. Based on the following two github issues it seems like one way around this is
-    to just remove all arguments to sys.argv. However, since it's not clear whether permanently
-    removing these arguments might introduce unwanted behavior, we only temporarily remove them
-    while running our auth flow and then restore their value.
-
-    Sources:
-        * https://github.com/google/oauth2client/issues/695
-        * https://github.com/spyder-ide/spyder/issues/3883
-    """
-    original_argv = copy.deepcopy(sys.argv)
-    sys.argv = []
-    yield
-    sys.argv = original_argv
-
-
-@contextlib.contextmanager
-def _suppress_stdout():
-    """ Suppress stdout to eliminate unneeded print statements from oauth2client's run_flow """
-    class DummyStdOut(object):
-        def write(self, x):
-            pass
-
-        def flush(self):
-            pass
-
-    original_stdout = sys.stdout
-    sys.stdout = DummyStdOut()
-    yield
-    sys.stdout = original_stdout
-
-
 def convert_cell_index_to_label(row, col):
     """Convert two cell indexes to a string address
 
@@ -318,20 +280,3 @@ def convert_cell_label_to_index(label):
         col = col * NUMBER_OF_LETTERS_IN_ALPHABET + (ord(c) - ASCII_CHAR_OFFSET)
 
     return (row, col)
-
-
-class _MockStorage(Storage):
-    """A mock of oauth2client.file.Storage to prevent credentials being stored to disk.
-
-    This is intended to facilitate use of the library in multi-user environments where cached
-    credentials would be undesirable
-    """
-    def __init__(self):
-        super(_MockStorage, self).__init__(None)
-
-    def put(self, _):
-        return
-
-    def locked_get(self):
-        raise AccessTokenCredentialsError('This one-time access token is expired and can not be '
-                                          'refreshed. Please create a new datasheets.Client instance.')

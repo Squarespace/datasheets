@@ -4,10 +4,10 @@ Getting OAuth Credentials
 To utilize datasheets, you'll need to get it connected to your Google Drive and Google Sheets
 repositories. There are two possible ways to do this: user-granted authorization ('OAuth Client ID')
 or the use of a service account ('OAuth Service Account'), both of which are implemented through the
-underlying Google `oauth2client`_ library. A description of both authentication mechanisms follows
+underlying Google `google_auth`_ library. A description of both authentication mechanisms follows
 below, but before we can use either mechanism we need to create a project.
 
-.. _oauth2client: https://github.com/google/oauth2client
+.. _google_auth: https://github.com/GoogleCloudPlatform/google-auth-library-python
 
 Setting Up A Project
 --------------------

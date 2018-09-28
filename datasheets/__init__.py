@@ -1,11 +1,11 @@
 """
 datasheets is a library for interfacing with Google Sheets, including reading from, writing to,
 and modifying the formatting of Google Sheets. It is built on top of Google's
-google-api-python-client and oauth2client libraries using the Google Drive v3 and Google Sheets
+google-api-python-client and google_auth libraries using the Google Drive v3 and Google Sheets
 v4 REST APIs. Further details on these libraries and APIs can be found here:
 
     google-api-python-client: https://github.com/google/google-api-python-client
-    oauth2client: https://github.com/google/oauth2client
+    google_auth: https://github.com/GoogleCloudPlatform/google-auth-library-python
     Drive v3: https://developers.google.com/drive/v3/reference/
     Sheets v4: https://developers.google.com/sheets/reference/rest/
 """
