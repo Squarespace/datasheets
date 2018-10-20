@@ -122,6 +122,7 @@ class Client(object):
                     json.dump(data, f)
         else:
             credentials = self._fetch_new_client_credentials()
+        self.email = "user's personal email address"
         return credentials
 
     def _fetch_new_client_credentials(self):
