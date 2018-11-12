@@ -1,5 +1,5 @@
-from collections import OrderedDict
 import types
+from collections import OrderedDict
 
 import apiclient
 import pandas as pd

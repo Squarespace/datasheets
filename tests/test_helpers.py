@@ -5,7 +5,6 @@ import datetime as dt
 import sys
 
 import numpy as np
-import oauth2client
 import pandas as pd
 import pytest
 
@@ -100,34 +99,6 @@ def test_remove_trailing_nones(array, expected):
 ])
 def test_resize_row(array, new_len, expected):
     assert expected == helpers._resize_row(array, new_len)
-
-
-def test_mock_storage():
-    mock_storage = helpers._MockStorage()
-    mock_storage.put('bar')
-    with pytest.raises(oauth2client.client.AccessTokenCredentialsError) as err:
-        mock_storage.locked_get()
-
-    assert err.match('Please create a new datasheets.Client instance')
-
-
-def test_remove_sys_argv():
-    # If this test breaks halfway through then we lose our sys.argv,
-    # but it's assumed not to matter too much in this situation
-    original_argv = copy.deepcopy(sys.argv)
-    with helpers._remove_sys_argv():
-        assert sys.argv == []
-    assert sys.argv == original_argv
-
-
-def test_suppress_stdout(capsys):
-    print('foo')
-    with helpers._suppress_stdout():
-        print('bar')
-    print('baz')
-
-    out, _ = capsys.readouterr()
-    assert out == 'foo\nbaz\n'
 
 
 class TestMakeListOfLists:
