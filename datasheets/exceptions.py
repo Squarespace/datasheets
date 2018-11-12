@@ -23,3 +23,7 @@ class TabNotFound(DatasheetsException):
 
 class WorkbookNotFound(DatasheetsException):
     """ Trying to open non-existent or inaccessible workbook """
+
+
+class FetchDataError(DatasheetsException):
+    """ Error occurred when fetching tab data """

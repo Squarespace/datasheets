@@ -226,6 +226,32 @@ def test_process_rows_type_errors(mock_tab, expected_data):
     assert err.match('Mismatch exists in expected and actual data types')
 
 
+def test_process_rows_cell_error_values(mock_tab):
+    data = {
+        'sheets': [
+            {'data': [
+                {'rowData': [
+                    {'values': [{'effectiveValue': {'numberValue': 2}}]},
+                    {'values': [{}, {'effectiveValue': {'stringValue': 'foo'}}]},
+                    {'values': [{}, {
+                        'effectiveValue': {
+                            'errorValue': {
+                                'type': 'NAME',
+                                'message': "Unknown range name: 'FOO'.",
+                            }
+                        }
+                    }]}
+                ]}
+            ]}
+        ]
+    }
+    with pytest.raises(datasheets.exceptions.FetchDataError) as err:
+        mock_tab._process_rows(data)
+    assert err.match(
+        'Error of type "NAME" within cell B3 prevents fetching data. Message: "Unknown range name: \'FOO\'."'
+    )
+
+
 def test_fetch_data_empty(mock_tab):
     mock_tab.sheets_svc.get().execute.return_value = {'sheets': [{'data': [{}]}]}
 
