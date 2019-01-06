@@ -74,11 +74,21 @@ class Tab(object):
         """
         raw_rows = raw_data['sheets'][0]['data'][0].get('rowData', {})
         rows = []
-        for i, row in enumerate(raw_rows):
+        for row_num, row in enumerate(raw_rows):
             row_values = []
-            for cell in row.get('values', {}):
+            for col_num, cell in enumerate(row.get('values', {})):
                 # If the cell is empty, use None
                 value = cell.get('effectiveValue', {None: None})
+
+                # If a cell has an error in it (e.g. someone divides by zero, adds a number to
+                # text, etc.), then we raise an exception.
+                if 'errorValue' in value.keys():
+                    cell_label = helpers.convert_cell_index_to_label(row_num+1, col_num+1)
+                    error_type = value['errorValue'].get('type', 'unknown type')
+                    error_message = value['errorValue'].get('message', 'unknown error message')
+                    msg = 'Error of type "{}" within cell {} prevents fetching data. Message: "{}"'
+                    raise exceptions.FetchDataError(msg.format(error_type, cell_label, error_message))
+
                 # value is a dict with only 1 key so this next(iter()) is safe
                 base_fmt, cell_value = next(iter(value.items()))
 
