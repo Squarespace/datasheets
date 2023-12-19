@@ -466,9 +466,8 @@ def test_create_workbook_no_folder(mocker, mock_client):
 
 def test_create_workbook_with_folder(mocker, mock_client):
     filename = 'test_create_workbook'
-    file_id = 'xyz1234'
+    folder_id = file_id = 'xyz1234'
     foldername = 'datasheets_test_folder_1'
-    folder_id = 'xyz1234'
     root_id = '0AP2cy554S5hyUk9PVA'
     mocked_drive_svc = mocker.patch.object(mock_client, 'drive_svc', autospec=True)
     mocked_drive_svc.files().get().execute.return_value = {'id': root_id}
